@@ -520,6 +520,77 @@
             color: var(--accent-green);
         }
 
+        /* FAQ Section */
+        .faq-grid {
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .faq-item:hover,
+        .faq-item:active {
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+            -webkit-transform: translateY(-2px);
+        }
+
+        .faq-item.active {
+            border-color: var(--accent-green);
+            box-shadow: 0 15px 40px rgba(5, 156, 0, 0.12);
+        }
+
+        .faq-question {
+            padding: 28px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .faq-icon {
+            font-size: 1.8rem;
+            color: var(--accent-green);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--gray-light);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 600px;
+        }
+
+        .faq-answer-content {
+            padding: 36px 36px 36px 36px;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
         /* Final Section */
         .final-section {
             text-align: center;
@@ -623,6 +694,16 @@
 
             .impact-card {
                 padding: 30px 15px;
+            }
+
+            .faq-question {
+                padding: 22px 24px;
+                font-size: 1rem;
+            }
+
+            .faq-answer-content {
+                padding: 0 24px 26px 24px;
+                font-size: 0.95rem;
             }
 
             .final-section {
@@ -1195,6 +1276,61 @@
     </section>
 
     <br>
+    <!-- FAQ Section -->
+    <section class="section container">
+        <h2>Ответы на популярные вопросы</h2>
+        <div class="faq-grid">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Что такое комиссии и зачем они нужны?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Комиссии — это профильные направления работы Молодёжной палаты. Они позволяют каждому участвовать в тех вопросах, которые ему интересны, и структурируют существующую нагрузку, не добавляя новую.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Сколько комиссий будет создано?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        По поручению председателя было разработано 7 комиссий, которые отражают существующие аспекты деятельности нашей палаты.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Могу ли я участвовать в нескольких комиссиях?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Да, система создана так, чтобы каждый мог выбирать интересные направления. Вы можете участвовать в одной или нескольких комиссиях по своему усмотрению.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Увеличит ли это мою нагрузку?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Нет, комиссии не добавляют новую нагрузку — они структурируют существующую работу, делая её более организованной и эффективной.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br>
     <!-- Final Section -->
     <section class="section container">
         <div class="final-section">
@@ -1285,6 +1421,21 @@
 
             // Make toggleCard globally available
             window.toggleCard = toggleCard;
+
+            // FAQ toggle function with touch support
+            function toggleFaq(item) {
+                const allFaqs = document.querySelectorAll('.faq-item');
+                allFaqs.forEach(f => {
+                    if (f !== item) {
+                        f.classList.remove('active');
+                    }
+                });
+
+                item.classList.toggle('active');
+            }
+
+            // Make toggleFaq globally available
+            window.toggleFaq = toggleFaq;
 
             // Smooth scroll polyfill for older Safari versions
             if (!('scrollBehavior' in document.documentElement.style)) {
